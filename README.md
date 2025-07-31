@@ -32,7 +32,7 @@ Whether you're a casual viewer or a content curator, TalkTalkies offers a compre
 
 ### 🖥 Frontend
 - HTML5  
-- CSS3 *(optionally with Tailwind CSS)*  
+- CSS3
 - JavaScript
 
 ### 🌐 Backend
