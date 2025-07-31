@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+    <link rel="shortcut icon" type="x-icon" href="/images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+        overflow-x: hidden;
+        color: #e0e0e0;
+        padding: 0;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav {
+        margin: 5px;
+        background-color: #222;
+        border-radius: 30px;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+      }
+
+      .navbar {
+        height: 11vh;
+      }
+
+      .symbol {
+        padding-top: 12px;
+        display: flex;
+        gap: 10px;
+        font-family: "Manufacturing Consent", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 40px;
+        text-shadow: 0 0 3px #090909;
+      }
+
+      .symbol img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .symname {
+        color: rgb(227, 44, 44);
+      }
+
+      .container ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      .item {
+        height: 49px;
+        padding: 5px 10px;
+        border: 1px solid transparent;
+        transition: border-color 0.3s ease-in-out;
+        cursor: pointer;
+      }
+      .login {
+        border-top-color: rgb(240, 255, 37);
+        border-right-color: black;
+        border-bottom-color: rgb(48, 241, 225);
+        border-left-color: black;
+      }
+
+      .item:hover {
+        border-top-color: rgb(240, 255, 37);
+        border-right-color: black;
+        border-bottom-color: rgb(48, 241, 225);
+        border-left-color: black;
+      }
+
+      .item a {
+        text-decoration: none;
+        color: white;
+        padding: 8px;
+        display: block;
+      }
+
+      .login {
+        display: flex;
+      }
+
+      .neonText:hover {
+        color: #fff;
+        text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+          0 0 42px rgb(239, 12, 186), 0 0 82px rgb(239, 12, 186),
+          0 0 92px rgb(239, 12, 186), 0 0 102px rgb(239, 12, 186),
+          0 0 120px rgb(239, 12, 186);
+      }
+
+      .neon:hover {
+        color: #fff;
+        text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+          0 0 42px rgb(227, 44, 44), 0 0 82px rgb(227, 44, 44),
+          0 0 92px rgb(227, 44, 44), 0 0 102px rgb(227, 44, 44),
+          0 0 120px rgb(227, 44, 44);
+      }
+
+      /* responsive navbar code*/
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1100;
+        position: relative;
+      }
+
+      .hamburger svg {
+        width: 30px;
+        height: 30px;
+        fill: white;
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          height: auto;
+          padding: 10px;
+        }
+
+        .symbol {
+          font-size: 30px;
+        }
+
+        .symbol img {
+          width: 40px;
+          height: 40px;
+        }
+
+        .container {
+          display: none;
+          width: 100%;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: #222;
+          border-radius: 0 0 30px 30px;
+        }
+
+        .container.active {
+          display: block;
+        }
+
+        .container ul {
+          flex-direction: column;
+          gap: 10px;
+          padding: 10px;
+        }
+
+        .item {
+          height: auto;
+          text-align: center;
+        }
+
+        .login {
+          justify-content: center;
+        }
+
+        .hamburger {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .symbol {
+          font-size: 24px;
+        }
+
+        .symbol img {
+          width: 30px;
+          height: 30px;
+        }
+
+        .nav {
+          padding: 5px 10px;
+        }
+      }
+
+      /* Form Styles */
+      .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 100px);
+        padding: 20px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 2em;
+        background-color: #171717;
+        border-radius: 25px;
+        transition: 0.4s ease-in-out;
+        width: 100%;
+        max-width: 500px;
+        margin: 20px 0;
+      }
+
+      .form:hover {
+        transform: scale(1.02);
+        border: 1px solid black;
+      }
+
+      #heading {
+        text-align: center;
+        margin: 1em 0;
+        color: rgb(255, 255, 255);
+        font-size: clamp(1.2em, 4vw, 1.5em);
+      }
+
+      .field {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+        border-radius: 25px;
+        padding: 0.8em;
+        border: none;
+        outline: none;
+        color: white;
+        background-color: #171717;
+        box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+      }
+
+      .input-icon {
+        height: 1.3em;
+        width: 1.3em;
+        fill: white;
+      }
+
+      .input-field {
+        background: none;
+        border: none;
+        outline: none;
+        width: 100%;
+        color: #d3d3d3;
+        font-size: clamp(14px, 3vw, 16px);
+      }
+
+      .form .btn {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 2em;
+      }
+
+      .button1 {
+        padding: 0.8em 1.5em;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        transition: 0.4s ease-in-out;
+        background-color: #252525;
+        color: white;
+        font-size: clamp(14px, 3vw, 16px);
+        cursor: pointer;
+      }
+
+      .button1:hover {
+        background-color: black;
+        color: white;
+      }
+
+      small {
+        color: red;
+        font-size: clamp(12px, 2vw, 14px);
+        text-align: center;
+        display: block;
+      }
+
+      /* Stars Background */
+      .stars {
+        width: 1px;
+        height: 1px;
+        position: fixed;
+        background: white;
+        box-shadow: 2vw 5vh 2px white, 10vw 8vh 2px white, 15vw 15vh 1px white,
+          22vw 22vh 1px white, 28vw 12vh 2px white, 32vw 32vh 1px white,
+          38vw 18vh 2px white, 42vw 35vh 1px white, 48vw 25vh 2px white,
+          53vw 42vh 1px white, 58vw 15vh 2px white, 63vw 38vh 1px white,
+          68vw 28vh 2px white, 73vw 45vh 1px white, 78vw 32vh 2px white;
+        animation: twinkle 8s infinite linear;
+      }
+
+      .shooting-star {
+        position: fixed;
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, white, transparent);
+        animation: shoot 3s infinite ease-in;
+      }
+
+      .shooting-star:nth-child(1) {
+        top: 20%;
+        left: -100px;
+        animation-delay: 0s;
+      }
+
+      .shooting-star:nth-child(2) {
+        top: 35%;
+        left: -100px;
+        animation-delay: 1s;
+      }
+
+      .shooting-star:nth-child(3) {
+        top: 50%;
+        left: -100px;
+        animation-delay: 2s;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      @keyframes shoot {
+        0% {
+          transform: translateX(0) translateY(0) rotate(25deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(120vw) translateY(50vh) rotate(25deg);
+          opacity: 0;
+        }
+      }
+
+      /* Media Queries */
+      @media (max-width: 768px) {
+        .nav {
+          flex-wrap: nowrap;
+          padding: 10px 15px;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .container {
+          position: fixed;
+          top: -100%;
+          left: 0;
+          width: 100%;
+          background-color: #222;
+          padding: 80px 20px 20px;
+          transition: top 0.5s ease;
+          z-index: 1000;
+          border-radius: 0 0 20px 20px;
+        }
+
+        .container.active {
+          top: 0;
+        }
+
+        .container ul {
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .item {
+          width: 100%;
+          text-align: center;
+        }
+
+        .item a {
+          padding: 10px;
+        }
+
+        .form {
+          padding: 1.5em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .symbol {
+          font-size: clamp(18px, 6vw, 24px);
+        }
+
+        .symbol img {
+          width: clamp(25px, 7vw, 30px);
+          height: clamp(25px, 7vw, 30px);
+        }
+
+        .form {
+          padding: 1em;
+        }
+
+        .field {
+          padding: 0.6em;
+        }
+
+        .button1 {
+          padding: 0.6em 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+
+    <nav class="nav navbar">
+      <div class="symbol">
+        <a class="logo" href="/index.html">
+          <img class="img" alt="Logo" src="/images/favicon.png" />
+        </a>
+        <a class="symname neon" href="/index.html">TalkTalkies</a>
+      </div>
+
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="container">
+        <ul>
+          <li class="item neonText">
+            <a class="nav-link" href="/index.html">Home</a>
+          </li>
+          <li class="item neonText">
+            <a class="nav-link" href="/subpages/moviepage/index.html">Movies</a>
+          </li>
+          <li class="item dropdown neonText">
+            <a id="dropdown-link" href="/subpages/genrepage/index.html"
+              >Genre</a
+            >
+          </li>
+          <li class="item neonText">
+            <a
+              class="nav-link"
+              href="/subpages/communitypage/com/frontend/index.html"
+              >Community</a
+            >
+          </li>
+          <li class="item login neonText">
+            <a class="nav-link" href="/auth/index.html"
+              ><img src="/images/login.png" alt="login"
+            /></a>
+            <a class="nav-link" href="/auth/index.html">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="form-container">
+      <form class="form" action="post">
+        <p id="heading">Welcome to The Admin Login Page</p>
+        <small class="tex"
+          >We'll never share your email with anyone else.</small
+        >
+        <div class="field">
+          <svg
+            class="input-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"
+            ></path>
+          </svg>
+          <input
+            autocomplete="off"
+            id="email"
+            placeholder="Admin Email Address"
+            class="input-field"
+            type="email"
+          />
+        </div>
+        <div class="field">
+          <svg
+            class="input-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"
+            ></path>
+          </svg>
+          <input
+            placeholder="Password"
+            id="password"
+            class="input-field"
+            type="password"
+          />
+        </div>
+        <div class="btn">
+          <button
+            class="button1 btn btn-outline-success btn-lg shadow"
+            type="submit"
+            onClick="auth(event)"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function auth(event) {
+        event.preventDefault();
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        if (email === "admin@gmail.com" && password === "user") {
+          window.location.replace("/auth/sim.html");
+        } else {
+          alert("Invalid information");
+          return;
+        }
+      }
+
+      function toggleMenu() {
+        const hamburger = document.querySelector(".hamburger");
+        const container = document.querySelector(".container");
+
+        hamburger.classList.toggle("active");
+        container.classList.toggle("active");
+
+        // Prevent scrolling when menu is open
+        if (container.classList.contains("active")) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "";
+        }
+      }
+
+      // Close menu when clicking on a link
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 768) {
+            toggleMenu();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

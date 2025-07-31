@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="shortcut icon" type="x-icon" href="/images/favicon.png">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #000;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            margin: 5px;
+            background-color: #222;
+            border-radius: 30px;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 5px;
+            z-index: 1000;
+        }
+
+        .navbar {
+            height: auto;
+        }
+
+        .symbol {
+            padding-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: "Manufacturing Consent", system-ui;
+            font-weight: 400;
+            font-style: normal;
+            font-size: clamp(20px, 5vw, 40px);
+            text-shadow: 0 0 3px #090909;
+            z-index: 1001;
+        }
+
+        .symbol img {
+            width: clamp(30px, 8vw, 60px);
+            height: clamp(30px, 8vw, 60px);
+        }
+
+        .symname {
+            color: rgb(227, 44, 44);
+        }
+
+        .container ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(5px, 2vw, 20px);
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .item {
+            height: auto;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            transition: border-color 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .login {
+            border-top-color: rgb(240, 255, 37);
+            border-right-color: black;
+            border-bottom-color: rgb(48, 241, 225);
+            border-left-color: black;
+        }
+
+        .item:hover {
+            border-top-color: rgb(240, 255, 37);
+            border-right-color: black;
+            border-bottom-color: rgb(48, 241, 225);
+            border-left-color: black;
+        }
+
+        .item a {
+            text-decoration: none;
+            color: white;
+            padding: 8px;
+            display: block;
+            font-size: clamp(12px, 2vw, 16px);
+            white-space: nowrap;
+        }
+
+        .login {
+            display: flex;
+            align-items: center;
+        }
+
+        .login img {
+            width: clamp(18px, 4vw, 24px);
+            height: clamp(18px, 4vw, 24px);
+            margin-right: 5px;
+        }
+
+        .neonText:hover {
+            color: #fff;
+            text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+                0 0 42px rgb(239, 12, 186), 0 0 82px rgb(239, 12, 186),
+                0 0 92px rgb(239, 12, 186), 0 0 102px rgb(239, 12, 186),
+                0 0 120px rgb(239, 12, 186);
+        }
+
+        .neon:hover {
+            color: #fff;
+            text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+                0 0 42px rgb(227, 44, 44), 0 0 82px rgb(227, 44, 44),
+                0 0 92px rgb(227, 44, 44), 0 0 102px rgb(227, 44, 44),
+                0 0 120px rgb(227, 44, 44);
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px 0;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Active state for hamburger */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Main Content Styles */
+        .square {
+            background-image: url("/images/bgadmin.jpg");
+            background-size: cover;
+            background-position: center;
+            border-radius: 1cm;
+            height: auto;
+            min-height: 60vh;
+            margin: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: pink;
+        }
+
+        .name {
+            color: rgb(0, 0, 0);
+            font-size: clamp(24px, 6vw, 50px);
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .welcome-text {
+            color: white;
+            font-size: clamp(14px, 3vw, 18px);
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+
+        .parag {
+            font-size: clamp(16px, 3vw, 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        .bu {
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .adlogo {
+            padding: 20px 0;
+            margin: 0 auto;
+        }
+
+        .adlogo img {
+            height: clamp(80px, 20vw, 150px);
+            width: clamp(80px, 20vw, 150px);
+        }
+
+        /* Button Styles */
+        .link-button {
+            font-size: clamp(16px, 3vw, 24px);
+            padding: 0.6em 0.8em;
+            border-radius: 0.5em;
+            border: none;
+            background-color: #000;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 2px 2px 3px #000000b4;
+            width: 100%;
+        }
+
+        .smcontainer {
+            width: clamp(150px, 40vw, 250px);
+            position: relative;
+            padding: 3px;
+            background: linear-gradient(90deg, #03a9f4, #f5e900);
+            border-radius: 0.9em;
+            transition: all 0.4s ease;
+            margin: 10px 0;
+        }
+
+        .smcontainer::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            border-radius: 0.9em;
+            z-index: -10;
+            filter: blur(0);
+            transition: filter 0.4s ease;
+        }
+
+        .smcontainer:hover::before {
+            background: linear-gradient(90deg, #03a9f4, #f5e900);
+            filter: blur(1.2em);
+        }
+
+        .smcontainer:active::before {
+            filter: blur(0.2em);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .nav {
+                flex-wrap: nowrap;
+                padding: 10px 15px;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .container {
+                position: fixed;
+                top: -100%;
+                left: 0;
+                width: 100%;
+                background-color: #222;
+                padding: 80px 20px 20px;
+                transition: top 0.5s ease;
+                z-index: 1000;
+                border-radius: 0 0 20px 20px;
+            }
+            
+            .container.active {
+                top: 0;
+            }
+            
+            .container ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .item {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .item a {
+                padding: 10px;
+            }
+            
+            .square {
+                margin: 10px;
+                border-radius: 0.5cm;
+            }
+            
+            .welcome-text {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .symbol {
+                font-size: clamp(18px, 6vw, 24px);
+            }
+            
+            .symbol img {
+                width: clamp(25px, 7vw, 30px);
+                height: clamp(25px, 7vw, 30px);
+            }
+            
+            .welcome-text {
+                padding: 10px;
+            }
+            
+            .smcontainer {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav navbar">
+        <div class="symbol">
+            <a class="logo" href="/index.html">
+                <img class="img" alt="Logo" src="/images/favicon.png" />
+            </a>
+            <a class="symname neon" href="/index.html">TalkTalkies</a>
+        </div>
+        
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="container">
+            <ul>
+                <li class="item neonText"><a class="nav-link" href="/index.html">Home</a></li>
+                <li class="item neonText">
+                    <a class="nav-link" href="/subpages/moviepage/index.html">Movies</a>
+                </li>
+                <li class="item dropdown neonText">
+                    <a id="dropdown-link" href="/subpages/genrepage/index.html">Genre</a>
+                </li>
+                <li class="item neonText">
+                    <a class="nav-link" href="/subpages/communitypage/com/frontend/index.html">Community</a>
+                </li>
+                <li class="item login neonText">
+                    <a class="nav-link" href="/auth/index.html"><img src="/auth/images/logout.png" alt="login"></a>
+                    <a class="nav-link" href="/auth/index.html">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="square">
+        <div class="adlogo"><img src="/images/favicon.png" alt="LOGO"></div>
+        <div class="name">Avishkar Bhasme</div>
+        <div class="parag">
+            <p class="welcome-text">
+                Welcome to <strong>TalkTalkies</strong>!<br>
+                This is your admin dashboard, where you can add or delete movie data with ease. Whether you're keeping things fresh or cleaning out the flops, you've got the power right here.<br><br>
+                Created and maintained by the one and only <strong>Avishkar Bhasme</strong>, the mastermind behind this cinematic hub.
+            </p>
+        </div>
+    </div>
+
+    <div class="bu">
+        <div class="smcontainer">
+            <button class="link-button" onclick='window.location.href="http://localhost:3000/"'>
+                Enter Editor Mode
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const container = document.querySelector('.container');
+            
+            hamburger.classList.toggle('active');
+            container.classList.toggle('active');
+            
+            // Prevent scrolling when menu is open
+            if (container.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
