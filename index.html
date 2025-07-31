@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TalkTalkies</title>
+    <link rel="shortcut icon" type="x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-black bodycon">
+    <nav class="nav navbar">
+      <div class="symbol">
+        <a class="logo" href="index.html">
+          <img class="img" alt="Logo" src="/images/favicon.png" />
+        </a>
+        <a class="symname neon" href="index.html">TalkTalkies</a>
+      </div>
+      <button class="hamburger" aria-label="Toggle menu">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="white">
+            <path d="M5 6h20v4H5zm0 7h20v4H5zm0 7h20v4H5z"/>
+        </svg>
+    </button>
+      <div class="container">
+        <ul>
+          <li class="item neonText"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="item neonText">
+            <a class="nav-link" href="/subpages/moviepage/index.html">Movies</a>
+          </li>
+
+          <li class="item dropdown neonText">
+            <a id="dropdown-link" href="./subpages/genrepage/index.html">Genre</a>
+          
+          <li class="item neonText">
+            <a class="nav-link" href="/subpages/communitypage/com/frontend/index.html">Community</a>
+          </li>
+          <li class="item login neonText">
+            <a class="nav-link" href="/auth/index.html"><img src="/images/login.png" alt="login"></a>
+            <a class="nav-link" href="/auth/index.html">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main class="main">
+      <div class="slider">
+        <div class="list">
+          <div class="dot">
+             <img src="./images/movie6.jpg" alt="">
+            <div class="content">
+              <div class="title">Spider-Man : No Way Home</div>
+              
+              <div class="description">
+                Peter Parker's life is upended when his identity as Spider-Man is exposed, forcing him to seek Doctor Strange's help to make the world forget. A botched spell tears open the multiverse, bringing villains from other realities into his own. Faced with immense loss, Peter must embrace his destiny, learning the true meaning of sacrifice to save his world and the fabric of reality itself.
+              </div>
+              
+            </div>
+            
+          </div>
+          <div class="dot">
+           <img src="./images/jurassic.jpg" alt="">
+            <div class="content">
+              <div class="title">Jurassic World</div>
+              
+              <div class="description">
+                Twenty-two years after the original park's collapse, a new, fully functional dinosaur theme park, Jurassic World, thrives on Isla Nublar. When a genetically modified, highly intelligent dinosaur, the Indominus Rex, escapes its enclosure, chaos erupts across the island. Park operations manager Claire Dearing and raptor trainer Owen Grady must join forces to survive the rampage and save thousands of lives from the unleashed prehistoric predators.
+              </div>
+              
+            </div>
+          </div>
+          <div class="dot">
+            <img src="./images/avengers.jpg" alt="">
+            <div class="content">
+              <div class="title">Avengers: Infinity War</div>
+              
+              <div class="description">
+                The Avengers and their allies must sacrifice everything to try and defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe. In order to collect all six Infinity Stones, Thanos plans to inflict his own twisted will on reality. The fate of the planet and existence itself has never been more uncertain as the Avengers have to put it all on the line.
+              </div>
+              
+            </div>
+          </div>
+          <div class="dot">
+            <img src="./images/pirate.jpg" alt="">
+            <div class="content">
+              <div class="title">Pirates of the Caribbean</div>
+              
+              <div class="description">
+                A teenage girl is magically transported to a secret, miniature world deep in a forest where a war between the forces of good and evil is raging. She joins a quirky team of leaf-men and extraordinary creatures to save their world and, in turn, her own. Through this fantastical journey, she discovers her true purpose and helps protect the delicate balance of nature.
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="thumbnail">
+          <div class="dot">
+            <img src="./images/movie6.jpg" alt="">
+          </div>
+          <div class="dot">
+            <img src="./images/jurassic.jpg" alt="">
+          </div>
+          <div class="dot">
+            <img src="./images/avengers.jpg" alt="">
+          </div>
+          <div class="dot">
+            <img src="./images/pirate.jpg" alt="">
+          </div>
+        </div>
+        <div class="nextPrevArrows">
+          <button class="prev"> < </button>
+          <button class="next"> > </button>
+        </div>
+      </div>
+
+    
+      <div class="sera">
+        
+      <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search for a movie by title...">
+  </div>
+
+  <div id="movieList" class="movie-list"></div>
+
+  <div id="movieModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" id="closeModal">&times;</span>
+      <div class="modal-poster" id="modalPoster">Poster</div>
+      <h2 id="modalTitle" class="modal-title"></h2>
+      <div class="modal-info">
+        <p><strong>IMDb ID:</strong> <span id="modalImdbId"></span></p>
+        <p><strong>Genres:</strong> <span id="modalGenres"></span></p>
+        <p><strong>Release Year:</strong> <span id="modalReleaseYear"></span></p>
+        <p><strong>Rating:</strong> <span id="modalRating"></span></p>
+        <p><strong>Director:</strong> <span id="modalDirector"></span></p>
+        <p><strong>Cast:</strong> <span id="modalCast"></span></p>
+        <p><strong>Runtime:</strong> <span id="modalRuntime"></span></p>
+        <p><strong>Tagline:</strong> <span id="modalTagline"></span></p>
+        <p><strong>Keywords:</strong> <span id="modalKeywords"></span></p>
+        <p><strong>Production Companies:</strong> <span id="modalProduction"></span></p>
+        <p><strong>Overview:</strong> <span id="modalOverview"></span></p>
+        <p><strong>Homepage:</strong> <a id="modalHomepage" href="#" target="_blank"></a></p>
+      </div>
+    </div>
+  </div>
+      
+    </div>
+    <div class="belowsearch">
+      <div id="genreSections"></div>
+  </div>
+      
+    </main>
+    <footer class="foot">
+      <p>TalkTalkies</p>
+      <p>© 2025 All rights reserved.</p>
+      <p>Email :- timepasstalkies12@gmail.com</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
