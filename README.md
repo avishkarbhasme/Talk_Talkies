@@ -1,4 +1,4 @@
-# 🎬 TalkTalkies
+# 🎬 Talk_Talkies
 
 **TalkTalkies** is a dynamic web application designed for movie enthusiasts and administrators alike. It provides a seamless experience for browsing, searching, and discovering movies, along with a robust admin dashboard for efficient movie data management.
 
@@ -22,9 +22,6 @@ Whether you're a casual viewer or a content curator, TalkTalkies offers a compre
 
 - 💬 **Community Hub**  
   Connect with fellow movie lovers using integrated WhatsApp, Telegram, and Gmail links, and comment on movies.
-
-- 🔐 **User Authentication**  
-  Secure login and logout for both general users and administrators using JWT.
 
 - 📱 **Responsive Design**  
   Optimized for all screen sizes, from desktops to mobile devices.
@@ -57,5 +54,7 @@ Whether you're a casual viewer or a content curator, TalkTalkies offers a compre
 
 ---
 
-## 🗂️ Folder Structure
+## 📧 Contact
+- Created and maintained by Avishkar Bhasme
+- 📩 Email: timepasstalkies12@gmail.com
 
