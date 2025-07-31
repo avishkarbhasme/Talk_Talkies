@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community</title>
+    <link rel="shortcut icon" type="x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav class="nav navbar">
+        <div class="symbol">
+            <a class="logo" href="/index.html">
+                <img class="img" alt="Logo" src="/images/favicon.png" />
+            </a>
+            <a class="symname neon" href="/index.html">TalkTalkies</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+        
+        <div class="container">
+            <ul>
+                <li class="item neonText"><a class="nav-link" href="/index.html">Home</a></li>
+                <li class="item neonText">
+                    <a class="nav-link" href="/subpages/moviepage/index.html">Movies</a>
+                </li>
+                <li class="item dropdown neonText">
+                    <a id="dropdown-link" href="/subpages/genrepage/index.html">Genre</a>
+                </li>
+                <li class="item neonText navcommunity">
+                    <a class="nav-link" href="./index.html">Community</a>
+                </li>
+                <li class="item login neonText">
+                    <a class="nav-link" href="/auth/index.html"><img src="/images/login.png" alt="login"></a>
+                    <a class="nav-link" href="/auth/index.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="whole-box">
+        <div class="comm">
+            <div class="naam">Join Our Community</div>
+            <div class="whatsapp">
+                <img src="../icons/whatsapp.png"><div class="text-wh"> Whatsapp: <a href="https://chat.whatsapp.com/Edlyoymz87WFzmain2ycfr" target="_blank">https://chat.whatsapp.com/Edlyoymz87WFzmain2ycfr</a></div>
+            </div>
+            <div class="telegram">
+                <img src="../icons/telegram.png"><div class="text-te"> Telegram: <a href="https://t.me/+4P6p1w9f1JQ0OTc1" target="_blank">https://t.me/+4P6p1w9f1JQ0OTc1</a></div>
+            </div>
+            <div class="gmail">
+                <img src="../icons/gmail.png"><div class="text-te"> Gmail: timepasstalkies12@gmail.com</div>
+            </div>
+        </div>
+        <div class="comment-box">
+            <h2>Comments</h2>
+            <textarea id="main-comment" placeholder="Add a comment..."></textarea>
+            <button onclick="postComment()">Comment</button>
+            <div id="comments-container"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f4f4f4;
+    }
+
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1rem;
+      background: #3a6e72;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .movie-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .movie-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .movie-placeholder {
+      height: 180px;
+      background: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    .movie-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .movie-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .movie-meta {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .movie-overview {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.4;
+      margin-top: 0.5rem;
+    }
+
+    .stars {
+      color: #facc15;
+      font-size: 1rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #444;
+    }
+
+    .modal-poster {
+      width: 200px;
+      height: 300px;
+      background: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #444;
+      margin: 0 auto 1.5rem;
+      border-radius: 8px;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .modal-info p {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .modal-info strong {
+      display: inline-block;
+      min-width: 140px;
+      color: #2d3748;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search for a movie by title...">
+  </div>
+
+  <div id="movieList" class="movie-list"></div>
+
+  <div id="movieModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" id="closeModal">&times;</span>
+      <div class="modal-poster" id="modalPoster">Poster</div>
+      <h2 id="modalTitle" class="modal-title"></h2>
+      <div class="modal-info">
+        <p><strong>IMDb ID:</strong> <span id="modalImdbId"></span></p>
+        <p><strong>Genres:</strong> <span id="modalGenres"></span></p>
+        <p><strong>Release Year:</strong> <span id="modalReleaseYear"></span></p>
+        <p><strong>Rating:</strong> <span id="modalRating"></span></p>
+        <p><strong>Director:</strong> <span id="modalDirector"></span></p>
+        <p><strong>Cast:</strong> <span id="modalCast"></span></p>
+        <p><strong>Runtime:</strong> <span id="modalRuntime"></span></p>
+        <p><strong>Tagline:</strong> <span id="modalTagline"></span></p>
+        <p><strong>Keywords:</strong> <span id="modalKeywords"></span></p>
+        <p><strong>Production Companies:</strong> <span id="modalProduction"></span></p>
+        <p><strong>Overview:</strong> <span id="modalOverview"></span></p>
+        <p><strong>Homepage:</strong> <a id="modalHomepage" href="#" target="_blank"></a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+let movies = [];
+
+    async function fetchMovies() {
+      const response = await fetch('movies2.json');
+      movies = await response.json();
+    }
+
+    function renderMovies(filteredMovies) {
+      const container = document.getElementById('movieList');
+      container.innerHTML = '';
+
+      filteredMovies.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+
+        const title = movie.original_title || 'No Title';
+        const genre = movie.genres || 'N/A';
+        const year = movie.release_year || 'N/A';
+        const rating = movie.vote_average || 0;
+        const overview = movie.overview || 'No overview available.';
+
+        const stars = Math.round(rating) / 2;
+        let starHtml = '';
+        for (let i = 1; i <= 5; i++) {
+          if (i <= stars) starHtml += '<span class="stars">★</span>';
+          else starHtml += '<span class="stars" style="color: #ccc;">★</span>';
+        }
+
+        card.innerHTML = `
+          <div class="movie-placeholder">${title}</div>
+          <div class="movie-content">
+            <h3 class="movie-title">${title}</h3>
+            <p class="movie-meta"><strong>Genre:</strong> ${genre}</p>
+            <p class="movie-meta"><strong>Year:</strong> ${year}</p>
+            <p class="movie-meta"><strong>Rating:</strong> ${rating} ${starHtml}</p>
+            <p class="movie-overview">${overview.substring(0, 150)}...</p>
+          </div>
+        `;
+
+        card.addEventListener('click', () => showModal(movie));
+        container.appendChild(card);
+      });
+    }
+
+    function showModal(movie) {
+      document.getElementById('modalPoster').textContent = movie.original_title || 'Poster';
+      document.getElementById('modalTitle').textContent = movie.original_title || 'N/A';
+      document.getElementById('modalImdbId').textContent = movie.imdb_id || 'N/A';
+      document.getElementById('modalGenres').textContent = movie.genres || 'N/A';
+      document.getElementById('modalReleaseYear').textContent = movie.release_year || 'N/A';
+      document.getElementById('modalRating').textContent = movie.vote_average || 'N/A';
+      document.getElementById('modalDirector').textContent = movie.director || 'N/A';
+      document.getElementById('modalCast').textContent = movie.cast || 'N/A';
+      document.getElementById('modalRuntime').textContent = movie.runtime || 'N/A';
+      document.getElementById('modalTagline').textContent = movie.tagline || 'N/A';
+      document.getElementById('modalKeywords').textContent = movie.keywords || 'N/A';
+      document.getElementById('modalProduction').textContent = movie.production_companies || 'N/A';
+      document.getElementById('modalOverview').textContent = movie.overview || 'N/A';
+      const homepage = document.getElementById('modalHomepage');
+      homepage.href = movie.homepage || '#';
+      homepage.textContent = movie.homepage || 'N/A';
+      document.getElementById('movieModal').style.display = 'flex';
+    }
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('movieModal').style.display = 'none';
+    });
+
+    document.getElementById('searchInput').addEventListener('input', () => {
+      const term = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = movies.filter(movie =>
+      String(movie.original_title || '').toLowerCase().includes(term)
+      );
+      renderMovies(term ? filtered : []);
+    });
+
+    fetchMovies();
+  </script>
+</body>
+
+</html>
