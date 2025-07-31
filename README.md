@@ -58,3 +58,12 @@ Whether you're a casual viewer or a content curator, TalkTalkies offers a compre
 - Created and maintained by Avishkar Bhasme
 - 📩 Email: timepasstalkies12@gmail.com
 
+---
+
+## 📷 Screenshots
+
+### 🏠 Home Page
+![Home Page](./images/home.png)
+
+### 🎬 Movie Details
+![Movie Details](./images/mov.png)
