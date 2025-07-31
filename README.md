@@ -63,7 +63,17 @@ Whether you're a casual viewer or a content curator, TalkTalkies offers a compre
 ## 📷 Screenshots
 
 ### 🏠 Home Page
-![Home Page](./images/home.png)
+![Home Page](./images/main.png)
 
 ### 🎬 Movie Details
 ![Movie Details](./images/mov.png)
+
+### 🎭 Genre Page
+![Genre Page](./images/gen.png)
+
+### 💬 Community Page
+![Community Page](./images/comm.png)
+
+### 🔐 Login & Logout
+![Login](./images/log.png)
+![Logout](./images/logou.png)
