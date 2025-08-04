@@ -37,7 +37,7 @@
 
 - Director and Cast Information
 
-vRelease Date
+- vRelease Date
 
 - IMDb/Rotten Tomatoes Rating (or internal rating)
 
