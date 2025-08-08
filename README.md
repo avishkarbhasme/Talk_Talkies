@@ -97,3 +97,7 @@
 ### 🔐 Login & Logout
 ![Login](./images/log.png)
 ![Logout](./images/logou.png)
+
+### 🗑️ Add / Remove Movie Data
+![Add](./images/ad.png)
+![Add](./images/dl.png)
