@@ -96,7 +96,7 @@
 
 ### 🔐 Login & Logout
 ![Logout](./images/logou.png)
-![Login](./images/log.png)
+![Login](./images/log1.png)
 
 
 ### 🗑️ Add / Remove Movie Data
