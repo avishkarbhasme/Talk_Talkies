@@ -95,8 +95,9 @@
 ![Community Page](./images/comm.png)
 
 ### 🔐 Login & Logout
-![Login](./images/log.png)
 ![Logout](./images/logou.png)
+![Login](./images/log.png)
+
 
 ### 🗑️ Add / Remove Movie Data
 ![Add](./images/ad.png)
